@@ -20,6 +20,17 @@ export default {
     copy: 'コピー',
     copied: 'コピーしました'
   },
+  qr: {
+    welcome: 'ようこそ',
+    scanQr: 'QRコードをスキャンしてください',
+    redirecting: 'リダイレクト中...',
+    invalidStore: '無効な店舗IDです',
+    loginRequired: 'ログインが必要です',
+    customerLogin: '顧客ログイン',
+    staffLogin: 'スタッフログイン',
+    storeId: '店舗ID',
+    enterSystem: 'システムに入る'
+  },
   auth: {
     login: 'ログイン',
     username: 'ユーザー名',
@@ -38,16 +49,8 @@ export default {
     enterPhone: '電話番号を入力してください',
     enterOtp: '認証コードを入力してください',
     enterUsername: 'ユーザー名を入力してください',
-    enterPassword: 'パスワードを入力してください'
-  },
-  qr: {
-    welcome: 'ようこそ',
-    scanQr: 'QRコードをスキャンしてください',
-    redirecting: 'リダイレクト中...',
-    invalidStore: '無効な店舗IDです',
-    loginRequired: 'ログインが必要です',
-    customerLogin: '顧客ログイン',
-    staffLogin: 'スタッフログイン'
+    enterPassword: 'パスワードを入力してください',
+    alreadyLoggedIn: 'すでにログインしています'
   },
   staff: {
     title: 'スタッフ管理',

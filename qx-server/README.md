@@ -27,9 +27,20 @@ app/
 └── main.py           # FastAPI app
 ```
 
+## Requirements
+
+- Python 3.11 or 3.12 (Python 3.14 is not yet supported by all dependencies)
+- MySQL 8.0+
+
 ## Getting Started
 
-1. Install dependencies:
+1. Create virtual environment with Python 3.11 or 3.12:
+```bash
+python3.12 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+2. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```

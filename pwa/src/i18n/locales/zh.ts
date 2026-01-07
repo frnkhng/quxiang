@@ -38,7 +38,8 @@ export default {
     enterPhone: '请输入手机号',
     enterOtp: '请输入验证码',
     enterUsername: '请输入用户名',
-    enterPassword: '请输入密码'
+    enterPassword: '请输入密码',
+    alreadyLoggedIn: '已登录'
   },
   qr: {
     welcome: '欢迎',
@@ -47,7 +48,9 @@ export default {
     invalidStore: '无效的店铺ID',
     loginRequired: '需要登录',
     customerLogin: '顾客登录',
-    staffLogin: '员工登录'
+    staffLogin: '员工登录',
+    storeId: '店铺ID',
+    enterSystem: '进入系统'
   },
   staff: {
     title: '员工管理',
