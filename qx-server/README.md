@@ -67,10 +67,16 @@ CREATE DATABASE quxiang CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 alembic upgrade head
 ```
 
-6. Run development server:
+6. Run the application:
 ```bash
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+# Development
+python run.py
+
+# Production (recommended)
+uvicorn app.main:app --host 127.0.0.1 --port 8010
 ```
+
+The API will be available at `http://localhost:8010`
 
 ## API Endpoints
 
