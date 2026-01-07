@@ -68,7 +68,9 @@ export default {
     storeQrCode: '店舗QRコード',
     qrCodeDesc: 'このQRコードを顧客にスキャンしてもらってください',
     copyUrl: 'URLをコピー',
-    urlCopied: 'URLをコピーしました'
+    urlCopied: 'URLをコピーしました',
+    printQrDesc: '印刷用ページを開いて、顧客向けQRコードを印刷できます',
+    openPrintPage: '印刷ページを開く'
   },
   customer: {
     title: '顧客ポータル',
@@ -86,7 +88,9 @@ export default {
     typeMessage: 'メッセージを入力...',
     startConversation: '会話を開始してください',
     profile: 'プロフィール',
-    personalInfo: '個人情報'
+    personalInfo: '個人情報',
+    welcomeMessage: 'ようこそ！',
+    scanQrMessage: 'スマートフォンでこのQRコードをスキャンしてログインしてください'
   },
   hq: {
     title: '本部管理',

@@ -1,57 +1,134 @@
 <template>
   <div class="qr-code">
     <div class="card">
-      <h1>门店二维码</h1>
-      <p>客户扫描此二维码可进入系统</p>
+      <div class="no-print">
+        <h1>{{ t('staff.storeQrCode') }}</h1>
+        <p>{{ t('staff.printQrDesc') }}</p>
+        <button @click="openPrintWindow" class="btn btn-primary" style="margin-bottom: 20px;">
+          {{ t('staff.openPrintPage') }}
+        </button>
+      </div>
+      
+      <div class="print-only">
+        <h1 style="font-size: 32px; margin-bottom: 20px;">{{ t('customer.welcomeMessage') }}</h1>
+        <p style="font-size: 18px; margin-bottom: 40px;">{{ t('customer.scanQrMessage') }}</p>
+      </div>
       
       <div class="qr-display">
-        <div class="qr-placeholder">
-          <p>二维码占位</p>
-          <p style="font-size: 12px; margin-top: 10px;">
-            实际部署时需要集成二维码生成库
-          </p>
-        </div>
+        <canvas ref="qrCanvas"></canvas>
       </div>
-      
-      <div class="url-box">
-        <input
-          :value="qrUrl"
-          type="text"
-          class="form-input"
-          readonly
-        />
-        <button @click="copyUrl" class="btn btn-primary">复制链接</button>
-      </div>
-      
-      <p v-if="copied" style="color: #52c41a; text-align: center; margin-top: 10px;">
-        已复制到剪贴板
-      </p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/stores/auth'
+import QRCode from 'qrcode'
 
+const { t } = useI18n()
 const authStore = useAuthStore()
-const copied = ref(false)
+const qrCanvas = ref<HTMLCanvasElement | null>(null)
 
 const qrUrl = computed(() => {
   const baseUrl = window.location.origin
-  const storeId = authStore.user?.storeId || 'STORE_ID'
+  const storeId = authStore.user?.storeId || 'store-001'
   return `${baseUrl}/q?store=${storeId}`
 })
 
-async function copyUrl() {
+onMounted(async () => {
+  if (qrCanvas.value) {
+    try {
+      await QRCode.toCanvas(qrCanvas.value, qrUrl.value, {
+        width: 300,
+        margin: 2,
+        color: {
+          dark: '#000000',
+          light: '#FFFFFF'
+        }
+      })
+    } catch (err) {
+      console.error('Failed to generate QR code:', err)
+    }
+  }
+})
+
+async function openPrintWindow() {
   try {
-    await navigator.clipboard.writeText(qrUrl.value)
-    copied.value = true
-    setTimeout(() => {
-      copied.value = false
-    }, 2000)
+    // Generate QR code as data URL first
+    const storeId = authStore.user?.storeId || 'store-001'
+    const qrUrlValue = `${window.location.origin}/q?store=${storeId}`
+    
+    const qrDataUrl = await QRCode.toDataURL(qrUrlValue, {
+      width: 300,
+      margin: 2,
+      color: {
+        dark: '#000000',
+        light: '#FFFFFF'
+      }
+    })
+    
+    // Open print window with the generated QR code image
+    const printWindow = window.open('', '_blank', 'width=800,height=900')
+    if (!printWindow) return
+    
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="UTF-8">
+        <title>${t('staff.storeQrCode')}</title>
+        <style>
+          body {
+            margin: 0;
+            padding: 40px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+          }
+          h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+          }
+          p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            text-align: center;
+            color: #666;
+          }
+          img {
+            border: 2px solid #e8e8e8;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          }
+          @media print {
+            body {
+              padding: 20px;
+            }
+          }
+        </style>
+      </head>
+      <body>
+        <h1>${t('customer.welcomeMessage')}</h1>
+        <p>${t('customer.scanQrMessage')}</p>
+        <img src="${qrDataUrl}" alt="QR Code" />
+        <script>
+          window.onload = function() {
+            setTimeout(() => window.print(), 500);
+          };
+        <\/script>
+      </body>
+      </html>
+    `)
+    printWindow.document.close()
   } catch (err) {
-    console.error('Failed to copy:', err)
+    console.error('Failed to generate QR code:', err)
   }
 }
 </script>
@@ -75,24 +152,23 @@ h1 {
   justify-content: center;
 }
 
-.qr-placeholder {
-  width: 300px;
-  height: 300px;
-  border: 2px dashed #d9d9d9;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #999;
-  background: #fafafa;
+canvas {
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.url-box {
-  display: flex;
-  gap: 10px;
+.print-only {
+  display: none;
 }
 
-.url-box input {
-  flex: 1;
+@media print {
+  .no-print {
+    display: none;
+  }
+  
+  .print-only {
+    display: block;
+  }
 }
 </style>

@@ -65,13 +65,15 @@ export default {
     createProfile: '新建客户',
     noProfiles: '未找到客户',
     noRecords: '暂无记录',
-    storeQrCode: '店铺二维码',
-    qrCodeDesc: '请让客户扫描此二维码',
+    storeQrCode: '门店二维码',
+    qrCodeDesc: '让客户扫描此二维码进入系统',
     copyUrl: '复制链接',
-    urlCopied: '链接已复制'
+    urlCopied: '已复制链接',
+    printQrDesc: '打开打印页面，为顾客打印二维码',
+    openPrintPage: '打开打印页面'
   },
   customer: {
-    title: '客户门户',
+    title: '顾客门户',
     home: '首页',
     records: '记录',
     ai: 'AI咨询',
@@ -80,13 +82,15 @@ export default {
     recentRecords: '最近记录',
     quickActions: '快捷操作',
     viewAllRecords: '查看所有记录',
-    chatWithAi: 'AI咨询',
+    chatWithAi: '与AI对话',
     noRecordsYet: '暂无记录',
     aiAdvisor: 'AI健康顾问',
     typeMessage: '输入消息...',
     startConversation: '开始对话',
     profile: '个人资料',
-    personalInfo: '个人信息'
+    personalInfo: '个人信息',
+    welcomeMessage: '欢迎光临！',
+    scanQrMessage: '请用手机扫描此二维码登录'
   },
   hq: {
     title: '总部管理',
