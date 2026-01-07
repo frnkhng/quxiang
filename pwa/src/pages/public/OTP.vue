@@ -34,7 +34,7 @@
               type="text"
               class="form-input"
               :placeholder="t('auth.enterOtp')"
-              maxlength="6"
+              maxlength="4"
               required
             />
           </div>
@@ -68,6 +68,7 @@ import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/stores/auth'
+import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 
 const { t } = useI18n()
 

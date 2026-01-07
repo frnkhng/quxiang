@@ -49,7 +49,11 @@ def request_otp(
     request: OTPRequest,
     db: Session = Depends(get_db)
 ):
-    code = str(random.randint(100000, 999999))
+    # Generate random 4-digit OTP code
+    code = str(random.randint(1000, 9999))
+    
+    # Delete any existing OTP for this phone number
+    db.query(OTP).filter(OTP.phone == request.phone).delete()
     
     otp = OTP(
         id=str(uuid.uuid4()),
@@ -60,7 +64,8 @@ def request_otp(
     db.add(otp)
     db.commit()
     
-    print(f"OTP for {request.phone}: {code}")
+    # Print OTP to console for testing (no SMS API integrated yet)
+    print(f"📱 SMS OTP for {request.phone}: {code} (expires in 5 minutes)")
     
     return {"success": True, "message": "OTP sent"}
 

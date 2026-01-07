@@ -36,7 +36,7 @@ export default {
     sessionExpired: '会话已过期',
     pleaseLogin: '请登录',
     enterPhone: '请输入手机号',
-    enterOtp: '请输入验证码',
+    enterOtp: '请输入4位验证码',
     enterUsername: '请输入用户名',
     enterPassword: '请输入密码',
     alreadyLoggedIn: '已登录'

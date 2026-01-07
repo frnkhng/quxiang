@@ -47,7 +47,7 @@ export default {
     sessionExpired: 'セッションが期限切れです',
     pleaseLogin: 'ログインしてください',
     enterPhone: '電話番号を入力してください',
-    enterOtp: '認証コードを入力してください',
+    enterOtp: '4桁の認証コードを入力してください',
     enterUsername: 'ユーザー名を入力してください',
     enterPassword: 'パスワードを入力してください',
     alreadyLoggedIn: 'すでにログインしています'
