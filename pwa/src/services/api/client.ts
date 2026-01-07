@@ -1,7 +1,11 @@
 import axios, { AxiosInstance, AxiosError } from 'axios'
 
+// Use relative URL in production (qxy.oike.io), localhost in development
+const isProduction = window.location.hostname === 'qxy.oike.io'
+const baseURL = isProduction ? '' : 'http://localhost:8010'
+
 const apiClient: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000',
+  baseURL,
   timeout: 30000,
   withCredentials: true,
   headers: {
