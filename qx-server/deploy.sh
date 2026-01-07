@@ -6,7 +6,7 @@ echo "🚀 Deploying Backend to qxy.oike.io..."
 # Deploy to server
 echo "📤 Uploading backend files..."
 SERVER="frnkhng@oike.io"
-REMOTE_PATH="~/quxiang/qx-server"
+REMOTE_PATH="/var/www/qxy.oike.io/qx-server"
 
 # Create systemd service file
 cat > qxy-backend.service << 'EOF'
@@ -17,15 +17,18 @@ After=network.target mysql.service
 [Service]
 Type=simple
 User=frnkhng
-WorkingDirectory=/home/frnkhng/quxiang/qx-server
-Environment="PATH=/home/frnkhng/quxiang/qx-server/venv/bin"
-ExecStart=/home/frnkhng/quxiang/qx-server/venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8010
+WorkingDirectory=/var/www/qxy.oike.io/qx-server
+Environment="PATH=/var/www/qxy.oike.io/qx-server/venv/bin"
+ExecStart=/var/www/qxy.oike.io/qx-server/venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8010
 Restart=always
 RestartSec=10
 
 [Install]
 WantedBy=multi-user.target
 EOF
+
+# Create remote directory if it doesn't exist
+ssh $SERVER "mkdir -p $REMOTE_PATH"
 
 # Upload backend files (exclude venv, __pycache__, .env)
 rsync -avz --exclude 'venv' \
@@ -40,7 +43,30 @@ scp qxy-backend.service $SERVER:~/
 
 # Execute remote commands
 ssh $SERVER << 'ENDSSH'
-  cd ~/quxiang/qx-server
+  cd /var/www/qxy.oike.io/qx-server
+  
+  # Check if .env exists
+  if [ ! -f ".env" ]; then
+    echo "⚠️  WARNING: .env file not found!"
+    echo "Please create .env file with:"
+    echo "  DATABASE_URL=mysql+pymysql://user:pass@localhost/quxiang"
+    echo "  SECRET_KEY=your-secret-key"
+    echo "  ALGORITHM=HS256"
+    exit 1
+  fi
+  
+  # Create venv if it doesn't exist
+  if [ ! -d "venv" ]; then
+    echo "Creating virtual environment..."
+    # Try python3.12, fallback to python3.11, then python3
+    if command -v python3.12 &> /dev/null; then
+      python3.12 -m venv venv
+    elif command -v python3.11 &> /dev/null; then
+      python3.11 -m venv venv
+    else
+      python3 -m venv venv
+    fi
+  fi
   
   # Activate venv and install dependencies
   source venv/bin/activate
