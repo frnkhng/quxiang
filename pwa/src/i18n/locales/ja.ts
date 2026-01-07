@@ -92,6 +92,47 @@ export default {
     welcomeMessage: 'ようこそ！',
     scanQrMessage: 'スマートフォンでこのQRコードをスキャンしてログインしてください'
   },
+  install: {
+    title: 'アプリをインストール',
+    skip: 'スキップして続ける',
+    inAppBrowser: {
+      title: 'ブラウザで開いてください',
+      line: 'LINEアプリ内では追加できません',
+      wechat: 'WeChatアプリ内では追加できません',
+      facebook: 'Facebookアプリ内では追加できません',
+      instagram: 'Instagramアプリ内では追加できません',
+      other: 'このアプリ内では追加できません',
+      step1: '右上の「…」メニューをタップ',
+      step2_ios: '「Safariで開く」を選択',
+      step2_android: '「ブラウザで開く」を選択'
+    },
+    android: {
+      title: 'アプリをインストール',
+      description: 'ホーム画面に追加して、いつでも簡単にアクセスできます',
+      installButton: 'インストール',
+      step1: 'ブラウザのメニュー（⋮）を開く',
+      step2: '「ホーム画面に追加」または「インストール」を選択',
+      step3: '「追加」または「インストール」をタップ',
+      installing: 'インストール中...',
+      success: 'インストール完了！アプリを開いています...'
+    },
+    ios: {
+      title: 'ホーム画面に追加',
+      description: 'ホーム画面に追加して、アプリのように使用できます',
+      safariOnly: '※ Safariブラウザで開いてください',
+      step1: '下部の共有ボタン（⬆️）をタップ',
+      step2: '「ホーム画面に追加」を選択',
+      step3: '右上の「追加」をタップ',
+      completeButton: '追加完了、続ける'
+    },
+    desktop: {
+      title: 'デスクトップに追加',
+      description: 'デスクトップアプリとしてインストールできます',
+      installButton: 'インストール',
+      step1: 'アドレスバーのインストールアイコンをクリック',
+      step2: '「インストール」をクリック'
+    }
+  },
   hq: {
     title: '本部管理',
     stores: '店舗管理',

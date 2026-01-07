@@ -29,6 +29,8 @@ import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/stores/auth'
+import { detectDevice, saveReferralData } from '@/utils/device'
+import { analytics } from '@/services/analytics'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 
 const { t } = useI18n()
@@ -43,6 +45,38 @@ onMounted(async () => {
   storeId.value = route.query.store as string
   loading.value = true
   
+  // Detect device and save referral data
+  const device = detectDevice()
+  
+  if (storeId.value) {
+    saveReferralData(storeId.value, 'qr_scan')
+    analytics.trackQRScan(storeId.value, device)
+  }
+  
+  // Check if already in standalone mode (PWA installed)
+  if (device.isStandalone) {
+    // Already installed, check auth and route accordingly
+    if (authStore.user) {
+      goToHome()
+    } else {
+      loading.value = false
+    }
+    return
+  }
+  
+  // If in-app browser or not installed, show install guide
+  if (device.isInAppBrowser || !device.isStandalone) {
+    router.push({
+      path: '/install',
+      query: {
+        os: device.os,
+        store: storeId.value
+      }
+    })
+    return
+  }
+  
+  // Default flow: check if logged in
   if (authStore.user) {
     goToHome()
   }

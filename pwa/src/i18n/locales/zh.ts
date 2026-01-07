@@ -89,8 +89,49 @@ export default {
     startConversation: '开始对话',
     profile: '个人资料',
     personalInfo: '个人信息',
-    welcomeMessage: '欢迎光临！',
-    scanQrMessage: '请用手机扫描此二维码登录'
+    welcomeMessage: '欢迎！',
+    scanQrMessage: '请用智能手机扫描此二维码登录'
+  },
+  install: {
+    title: '安装应用',
+    skip: '跳过继续',
+    inAppBrowser: {
+      title: '请在浏览器中打开',
+      line: '无法在LINE应用内添加',
+      wechat: '无法在微信应用内添加',
+      facebook: '无法在Facebook应用内添加',
+      instagram: '无法在Instagram应用内添加',
+      other: '无法在此应用内添加',
+      step1: '点击右上角"…"菜单',
+      step2_ios: '选择"在Safari中打开"',
+      step2_android: '选择"在浏览器中打开"'
+    },
+    android: {
+      title: '安装应用',
+      description: '添加到主屏幕，随时轻松访问',
+      installButton: '安装',
+      step1: '打开浏览器菜单（⋮）',
+      step2: '选择"添加到主屏幕"或"安装"',
+      step3: '点击"添加"或"安装"',
+      installing: '正在安装...',
+      success: '安装完成！正在打开应用...'
+    },
+    ios: {
+      title: '添加到主屏幕',
+      description: '添加到主屏幕，像应用一样使用',
+      safariOnly: '※ 请在Safari浏览器中打开',
+      step1: '点击底部的分享按钮（⬆️）',
+      step2: '选择"添加到主屏幕"',
+      step3: '点击右上角的"添加"',
+      completeButton: '添加完成，继续'
+    },
+    desktop: {
+      title: '添加到桌面',
+      description: '可以作为桌面应用安装',
+      installButton: '安装',
+      step1: '点击地址栏的安装图标',
+      step2: '点击"安装"'
+    }
   },
   hq: {
     title: '总部管理',

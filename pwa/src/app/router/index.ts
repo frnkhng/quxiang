@@ -9,6 +9,12 @@ const routes: RouteRecordRaw[] = [
     meta: { public: true },
   },
   {
+    path: '/install',
+    name: 'Install',
+    component: () => import('@/pages/public/Install.vue'),
+    meta: { public: true },
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('@/pages/public/Login.vue'),
@@ -124,7 +130,7 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to, _from, next) => {
   const authStore = useAuthStore()
   const isPublic = to.meta.public
   const requiredRole = to.meta.role
