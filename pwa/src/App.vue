@@ -3,12 +3,6 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { useAuthStore } from './stores/auth'
-
-const authStore = useAuthStore()
-
-onMounted(async () => {
-  await authStore.checkAuth()
-})
+// Auth check is handled by router guard in app/router/index.ts
+// No need to check here to avoid duplicate calls
 </script>

@@ -82,7 +82,7 @@ async function handleLogin() {
 }
 
 .card {
-  max-width: 400px;
+  max-width: 450px;
   width: 100%;
 }
 
@@ -90,6 +90,7 @@ h1 {
   margin-bottom: 30px;
   text-align: center;
   color: #333;
+  white-space: nowrap;
 }
 
 .btn {
@@ -110,9 +111,12 @@ a:hover {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
+  gap: 20px;
 }
 
 .header-with-lang h1 {
   margin: 0;
+  flex: 1;
+  min-width: 0;
 }
 </style>

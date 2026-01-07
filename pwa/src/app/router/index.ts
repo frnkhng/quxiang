@@ -129,22 +129,40 @@ router.beforeEach(async (to, from, next) => {
   const isPublic = to.meta.public
   const requiredRole = to.meta.role
 
-  if (!authStore.user && !isPublic) {
+  // Only check auth once if not already checked
+  if (!authStore.user && !isPublic && !authStore.loading) {
     await authStore.checkAuth()
   }
 
-  if (!isPublic && !authStore.user) {
-    next('/q')
+  // Allow public routes without auth
+  if (isPublic) {
+    next()
     return
   }
 
+  // Redirect to login if not authenticated
+  if (!authStore.user) {
+    if (to.path !== '/q') {
+      next('/q')
+    } else {
+      next()
+    }
+    return
+  }
+
+  // Check role-based access
   if (requiredRole && authStore.user?.role !== requiredRole) {
     const roleRoutes: Record<string, string> = {
       HQ: '/hq',
       STAFF: '/staff',
       CUSTOMER: '/customer/home',
     }
-    next(roleRoutes[authStore.user?.role || 'CUSTOMER'])
+    const targetRoute = roleRoutes[authStore.user?.role || 'CUSTOMER']
+    if (to.path !== targetRoute) {
+      next(targetRoute)
+    } else {
+      next()
+    }
     return
   }
 
