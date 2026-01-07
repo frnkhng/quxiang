@@ -94,4 +94,4 @@ ENDSSH
 rm qxy-backend.service
 
 echo "🔧 Backend service restarted!"
-echo "📊 Check logs: ssh $SERVER 'sudo journalctl -u qxy-backend -f'"
+echo "📊 Check logs: ssh $SERVER 'sudo journalctl -u qxy-backend -n 100'"
